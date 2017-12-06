@@ -1,0 +1,21 @@
+@import "../../vars";
+
+.AdminHeader {
+  position:      fixed;
+  z-index:       @z-index-2000;
+  width:         100%;
+  height:        70px;
+  padding-right: @indent !important;
+  background:    #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  transition:    all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  display:       flex;
+  align-items:   center;
+}
+
+.AdminHeaderInset {
+  width:           100%;
+  display:         flex;
+  justify-content: space-between;
+  align-items:     center;
+}

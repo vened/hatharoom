@@ -85,3 +85,4 @@ pickle-email-*.html
 /public/packs
 /public/packs-test
 /node_modules
+lib/capistrano/

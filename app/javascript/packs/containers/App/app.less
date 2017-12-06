@@ -1,0 +1,37 @@
+.AppLayout {
+  min-height: 100vh;
+}
+
+.App {
+  border: 1px solid red;
+}
+
+.fa {
+  min-width:    14px;
+  margin-right: 8px;
+  transition:   font-size .15s cubic-bezier(.215, .61, .355, 1), margin .3s cubic-bezier(.645, .045, .355, 1);
+}
+
+.ant-menu-inline-collapsed > .ant-menu-item .fa,
+.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title .fa,
+.ant-menu-vertical.ant-menu-inline-collapsed > .ant-menu-item .fa,
+.ant-menu-vertical.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title .fa {
+  font-size:   16px;
+  line-height: 42px;
+  margin:      0;
+}
+
+.ant-menu-item .anticon + span,
+.ant-menu-submenu-title .anticon + span {
+  transition: opacity .3s cubic-bezier(.645, .045, .355, 1), width .3s cubic-bezier(.645, .045, .355, 1);
+  opacity:    1;
+}
+
+.ant-menu-inline-collapsed > .ant-menu-item .fa + span,
+.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title .fa + span,
+.ant-menu-vertical.ant-menu-inline-collapsed > .ant-menu-item .fa + span,
+.ant-menu-vertical.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title .fa + span {
+  max-width: 0;
+  display:   inline-block;
+  opacity:   0;
+}
