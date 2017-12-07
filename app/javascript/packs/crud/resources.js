@@ -1,20 +1,27 @@
 const crudResources = [
   {
-    resource: 'Post',
-    path: '/posts',
-    label: 'Публикации',
+    resource: 'User',
+    path: '/admin/users',
+    apiPath: '/api/v1/users',
+    label: 'Пользователи',
     columns: [
       {
-        title: 'Заголовок',
-        dataIndex: 'title',
-        key: 'title',
+        title: 'id',
+        dataIndex: 'id',
+        key: 'id',
         type: 'string',
       },
       {
-        title: 'Описание',
-        dataIndex: 'description',
-        key: 'description',
-        type: 'text',
+        title: 'email',
+        dataIndex: 'email',
+        key: 'email',
+        type: 'string',
+      },
+      {
+        title: 'role',
+        dataIndex: 'role',
+        key: 'role',
+        type: 'string',
       },
     ],
   },

@@ -6,7 +6,7 @@ import {
   // fetchDELETE,
 } from '../api/fetchHelper';
 
-const apiHost = 'http://localhost:4000';
+const apiHost = 'http://localhost:3000';
 
 const CrudApi = {
   get: (resourcePath, params) => {

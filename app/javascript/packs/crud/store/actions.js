@@ -13,7 +13,7 @@ export function getCrudResource(resource) {
     });
 
     try {
-      CrudApi.get(resource.get('path')).then(
+      CrudApi.get(resource.get('apiPath')).then(
         response => dispatch(
           {
             type: GET_CRUD_RESOURCE_SUCCESS,

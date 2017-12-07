@@ -1,11 +1,9 @@
 import request from './request';
 
 function fetchGET(url) {
-  const headers = new Headers({});
-
   const options = {
     method: 'GET',
-    headers,
+    credentials: 'include'
   };
 
   return request(url, options);
