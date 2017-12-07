@@ -7,24 +7,25 @@
 }
 
 .fa {
-  min-width:    14px;
+  min-width: 14px;
   margin-right: 8px;
-  transition:   font-size .15s cubic-bezier(.215, .61, .355, 1), margin .3s cubic-bezier(.645, .045, .355, 1);
+  font-size: 16px;
+  transition: font-size .15s cubic-bezier(.215, .61, .355, 1), margin .3s cubic-bezier(.645, .045, .355, 1);
 }
 
 .ant-menu-inline-collapsed > .ant-menu-item .fa,
 .ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title .fa,
 .ant-menu-vertical.ant-menu-inline-collapsed > .ant-menu-item .fa,
 .ant-menu-vertical.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title .fa {
-  font-size:   16px;
+  font-size: 22px;
   line-height: 42px;
-  margin:      0;
+  margin: 0;
 }
 
 .ant-menu-item .anticon + span,
 .ant-menu-submenu-title .anticon + span {
   transition: opacity .3s cubic-bezier(.645, .045, .355, 1), width .3s cubic-bezier(.645, .045, .355, 1);
-  opacity:    1;
+  opacity: 1;
 }
 
 .ant-menu-inline-collapsed > .ant-menu-item .fa + span,
@@ -32,6 +33,6 @@
 .ant-menu-vertical.ant-menu-inline-collapsed > .ant-menu-item .fa + span,
 .ant-menu-vertical.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title .fa + span {
   max-width: 0;
-  display:   inline-block;
-  opacity:   0;
+  display: inline-block;
+  opacity: 0;
 }

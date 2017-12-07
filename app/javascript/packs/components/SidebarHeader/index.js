@@ -6,7 +6,7 @@ function SidebarHeader() {
   return (
     <div className="SidebarHeader">
       <div className="Logo">
-        <img src={logo} className="Logo-img" alt="logo" />
+        <img src={logo} className="Logo-img" alt="logo"/>
         <div className="Logo-slogan">
           React Admin
         </div>

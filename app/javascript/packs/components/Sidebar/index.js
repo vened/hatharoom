@@ -43,7 +43,7 @@ class Sidebar extends PureComponent {
   renderSubMenu = (item) => (
       <SubMenu
           key={shortid.generate()}
-          title={<span><Icon type={item.faIcon} /><span>{item.label}</span></span>}
+          title={<span><FontAwesome name={item.faIcon} /><span>{item.label}</span></span>}
       >
         {item.children.map((subMenuItem) => this.renderMenuItem(subMenuItem))}
       </SubMenu>

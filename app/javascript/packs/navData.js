@@ -2,7 +2,7 @@ const navData = [
   {
     label: 'Dashboard',
     path: '/',
-    faIcon: 'home',
+    faIcon: 'tachometer',
   },
   {
     label: 'UI elements',
