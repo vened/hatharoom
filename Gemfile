@@ -52,3 +52,15 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
 end
+
+# Added at 2017-12-07 23:01:28 +0300 by max:
+gem "rails-i18n", "~> 5.0"
+
+# Added at 2017-12-07 23:46:43 +0300 by max:
+gem "bootstrap-sass", "~> 3.3"
+
+# Added at 2017-12-07 23:51:04 +0300 by max:
+gem "slim-rails", "~> 3.1"
+
+# Added at 2017-12-07 23:58:49 +0300 by max:
+gem "devise-bootstrap-views", "~> 0.0.11"

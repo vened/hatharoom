@@ -1,0 +1,39 @@
+ru:
+  mongoid:
+    models:
+      user: Пользователь
+  helpers:
+    submit:
+      user:
+        create: "Add %{model}"
+        update: Сохранить изменения
+  simple_form:
+    labels:
+      user:
+        name: 'Имя и Фамилия'
+        about: 'Расскажите о себе'
+        organization: 'Место работы'
+        position: 'Должность'
+        work_experience: 'Cтаж'
+        organization_site: 'Сайт организации'
+        age: 'Возраст'
+        bdate: 'Дата рождения'
+        location: 'Город'
+        phone: 'Телефон'
+        telegram: 'Telegram'
+        email: 'Email'
+        password: 'Пароль'
+    hints:
+      user:
+        username: 'User name to sign in.'
+        password: 'No special characters, please.'
+    placeholders:
+      user:
+#        phone: "8 909 445-34-45"
+        password: '****'
+    include_blanks:
+      user:
+        age: 'Rather not say'
+    prompts:
+      user:
+        role: 'Select your role'

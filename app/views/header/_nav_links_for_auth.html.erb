@@ -1,0 +1,10 @@
+<ul class="nav navbar-nav navbar-right">
+  <% if user_signed_in? %>
+    <li class="<%= request.fullpath === edit_user_path(current_user) && 'active' %>">
+      <%= link_to "АНКЕТА", user_path(current_user) %>
+    </li>
+    <li>
+      <%= link_to 'Выход', destroy_user_session_path, :method => 'delete' %>
+    </li>
+  <% end %>
+</ul>

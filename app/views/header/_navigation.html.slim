@@ -1,0 +1,15 @@
+/ navigation styled for Bootstrap 3.0
+nav.navbar.navbar-inverse
+  .container
+    .navbar-header
+      button.navbar-toggle[type="button" data-toggle="collapse" data-target=".navbar-collapse"]
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      = link_to root_path, class: 'navbar-brand' do
+        span Yoga
+    .collapse.navbar-collapse
+      ul.nav.navbar-nav
+        == render 'header/navigation_links'
+      = render 'header/nav_links_for_auth'
