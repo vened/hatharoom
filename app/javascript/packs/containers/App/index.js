@@ -5,6 +5,7 @@ import {
   Switch,
 } from 'react-router-dom';
 import { Layout } from 'antd';
+import shortid from 'shortid';
 
 import AdminHeader from '../../components/AdminHeader';
 import ContentHeading from '../../components/ContentHeading';
@@ -36,7 +37,7 @@ class App extends Component {
                   <Switch>
                     <Route exact path="/" component={Dashboard} />
                     <Route path="/ui" component={UI} />
-                    <CrudRoutes />
+                    <CrudRoutes key={shortid.generate()} />
                   </Switch>
                 </main>
               </Content>

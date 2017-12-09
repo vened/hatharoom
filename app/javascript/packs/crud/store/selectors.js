@@ -8,11 +8,22 @@ const makeSelectResourcesList = () => createSelector(
     state => state.get('resources'),
 );
 
-const makeSelectResource = (path) => createSelector(
+const makeSelectResource = (currentPath, action) => createSelector(
     makeSelectResourcesList(),
     resources => {
-      const resourcesArr = resources.filter((item) => item.get('path') === path);
+      const resourcePath = action ? currentPath.replace(`/${action}`, '') : currentPath;
+      const resourcesArr = resources.filter((item) => item.get('path') === resourcePath);
       return resourcesArr.size > 0 ? resourcesArr.get(0) : fromJS({});
+    },
+);
+
+const makeSelectResourceColumns = (currentPath, action) => createSelector(
+    makeSelectResourcesList(),
+    resources => {
+      const resourcePath = action ? currentPath.replace(`/${action}`, '') : currentPath;
+      const resourcesArr = resources.filter((item) => item.get('path') === resourcePath);
+      const resource = resourcesArr.size > 0 ? resourcesArr.get(0) : fromJS({});
+      return resource.get('columns');
     },
 );
 
@@ -30,6 +41,7 @@ export {
   makeSelectResources,
   makeSelectResourcesList,
   makeSelectResource,
+  makeSelectResourceColumns,
   makeSelectCurrentResource,
   makeSelectCurrentResourceData,
 };

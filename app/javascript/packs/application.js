@@ -5,7 +5,8 @@ import { ConnectedRouter } from 'react-router-redux';
 import { LocaleProvider } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
 import App from './containers/App';
-import './theme.less';
+import './styles/theme.less';
+import './styles/base.less';
 
 import {
   store,

@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import {
   Form,
-  Icon,
+  Switch,
   Input,
   Button,
 } from 'antd';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { compose } from 'recompose';
+
+import {
+  makeSelectResource,
+  makeSelectResourceColumns,
+} from '../store/selectors';
+import { getCrudResource } from '../store/actions';
 import CrudApi from '../api';
 
 const FormItem = Form.Item;
-
+const { TextArea } = Input;
 
 function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
@@ -27,9 +38,10 @@ class CrudForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    const requestPath = `${this.props.resource.get('apiPath')}`
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        CrudApi.post('/posts', values).then(
+        CrudApi.post(requestPath, values).then(
             response => console.log(response),
             error => console.log(error),
         );
@@ -38,52 +50,101 @@ class CrudForm extends Component {
     });
   };
 
-  render() {
-    const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
-
-    // Only show error after a field is touched.
-    const titleError = isFieldTouched('title') && getFieldError('title');
-    const descriptionError = isFieldTouched('description') && getFieldError('description');
-    return (
-        <Form layout="inline" onSubmit={this.handleSubmit}>
-          <FormItem
-              validateStatus={titleError ? 'error' : ''}
-              help={titleError || ''}
-          >
-            {getFieldDecorator('title', {
-              rules: [{ required: true, message: 'Please input your username!' }],
-            })(
-                <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Title" />,
-            )}
-          </FormItem>
-          <FormItem
-              validateStatus={descriptionError ? 'error' : ''}
-              help={descriptionError || ''}
-          >
-            {getFieldDecorator('description', {
-              rules: [{ required: true, message: 'Please input your Password!' }],
-            })(
-                <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} placeholder="Description" />,
-            )}
-          </FormItem>
-          <FormItem>
-            <Button
-                type="primary"
-                htmlType="submit"
-                disabled={hasErrors(getFieldsError())}
+  renderItem = (item) => {
+    const { getFieldDecorator } = this.props.form;
+    if (item.get('key') !== 'id') {
+      if (item.get('type') === 'string') {
+        return (
+            <FormItem
+                label={item.get('label')}
             >
-              Log in
-            </Button>
-          </FormItem>
-        </Form>
+              {getFieldDecorator(item.get('key'), {
+                rules: [{ required: item.get('required'), message: item.get('requiredMessage') }],
+              })(
+                  <Input size="large" />,
+              )}
+            </FormItem>
+        );
+      }
+
+      if (item.get('type') === 'text') {
+        return (
+            <FormItem
+                label={item.get('label')}
+            >
+              {getFieldDecorator(item.get('key'), {
+                rules: [{ required: item.get('required'), message: item.get('requiredMessage') }],
+              })(
+                  <TextArea rows={6} />,
+              )}
+            </FormItem>
+        );
+      }
+
+      if (item.get('type') === 'switch') {
+        return (
+            <FormItem
+                label={item.get('label')}
+            >
+              {getFieldDecorator(item.get('key'), { valuePropName: 'checked' })(
+                  <Switch />,
+              )}
+            </FormItem>
+        );
+      }
+    }
+    return null;
+  };
+
+  render() {
+    const {
+      getFieldDecorator,
+      getFieldsError,
+    } = this.props.form;
+
+    return (
+        <div className="ContentPanel">
+          <Form layout="vertical" onSubmit={this.handleSubmit}>
+
+            {this.props.columns.map((item) => this.renderItem(item))}
+
+            <FormItem>
+              <Button
+                  type="primary"
+                  size="large"
+                  htmlType="submit"
+                  disabled={hasErrors(getFieldsError())}
+              >
+                Сохранить
+              </Button>
+            </FormItem>
+          </Form>
+        </div>
     );
   }
 }
 
 CrudForm.propTypes = {
-  PROP: PropTypes.string,
+  getCrudResource: PropTypes.func,
+  resource: ImmutablePropTypes.map,
+  columns: ImmutablePropTypes.list,
 };
 
-const WrappedForm = Form.create()(CrudForm);
+const mapStateToProps = (state, ownProps) => {
+  const action = ownProps.match.params.action && ownProps.match.params.action;
+  return createStructuredSelector({
+    resource: makeSelectResource(ownProps.match.url, action),
+    columns: makeSelectResourceColumns(ownProps.match.url, action),
+  });
+};
+
+const wrapper = compose(
+    connect(
+        mapStateToProps,
+        dispatch => bindActionCreators({}, dispatch),
+    ),
+);
+
+const WrappedForm = Form.create()(wrapper(CrudForm));
 
 export default WrappedForm;

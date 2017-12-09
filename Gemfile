@@ -64,3 +64,6 @@ gem "slim-rails", "~> 3.1"
 
 # Added at 2017-12-07 23:58:49 +0300 by max:
 gem "devise-bootstrap-views", "~> 0.0.11"
+
+# Added at 2017-12-08 23:42:41 +0300 by max:
+gem "active_model_serializers", "~> 0.10.7"

@@ -44,6 +44,7 @@ function fetchPOST(url, body) {
 
   const options = {
     method: 'POST',
+    credentials: 'include',
     headers,
     body: JSON.stringify(body),
   };

@@ -44,7 +44,7 @@ class CrudIndex extends Component {
 
   render() {
     const columns = this.props.resource.get('columns').toJS();
-    const data = this.props.data.toJS();
+    const data = this.props.data && this.props.data.toJS();
     const { loading, selectedRowKeys } = this.state;
     const rowSelection = {
       selectedRowKeys,
@@ -52,11 +52,12 @@ class CrudIndex extends Component {
     };
     const hasSelected = selectedRowKeys.length > 0;
     return (
-        <div style={{ backgroundColor: '#fff', marginBottom: 16, padding: 16 }}>
-          <div style={{ marginBottom: 16 }}>
+        <div className="ContentPanel">
 
+          <div className="action-panel">
             <Button
                 type="primary"
+                size="large"
                 onClick={this.start}
                 disabled={!hasSelected}
                 loading={loading}
@@ -64,15 +65,20 @@ class CrudIndex extends Component {
               Reload
             </Button>
 
-            <NavLink to={`${this.props.resource.get('path')}/new`}>
-              <span>New {this.props.resource.get('label')}</span>
-            </NavLink>
+            <Button
+                type="primary"
+                size="large"
+            >
+              <NavLink to={`${this.props.resource.get('path')}/create`}>
+                <span>{this.props.resource.get('labelAdd')}</span>
+              </NavLink>
+            </Button>
 
-            <span style={{ marginLeft: 8 }}>
-            {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
-          </span>
+            <span style={{ marginLeft: 8 }}>{hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}</span>
           </div>
+
           <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+
         </div>
     );
   }
