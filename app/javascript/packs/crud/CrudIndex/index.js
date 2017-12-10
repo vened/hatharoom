@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { NavLink } from 'react-router-dom';
 
 import { bindActionCreators } from 'redux';
@@ -12,59 +13,25 @@ import {
   Button,
 } from 'antd';
 
+import { setCurrentResource } from '../store/currentResource/actions';
 import {
-  makeSelectResource,
-  makeSelectCurrentResourceData,
-} from '../store/selectors';
-import { getCrudResource } from '../store/actions';
+  makeSelectCurrentResourceItems,
+} from '../store/currentResourceItems/selectors';
+import {
+  makeSelectCurrentResource,
+  makeSelectCurrentResourceColumns,
+} from '../store/currentResource/selectors';
 
-class CrudIndex extends Component {
-  state = {
-    selectedRowKeys: [], // Check here to configure the default column
-    loading: false,
-  };
-  start = () => {
-    this.setState({ loading: true });
-    // ajax request after empty completing
-    setTimeout(() => {
-      this.setState({
-        selectedRowKeys: [],
-        loading: false,
-      });
-    }, 1000);
-  };
-  onSelectChange = (selectedRowKeys) => {
-    console.log('selectedRowKeys changed: ', selectedRowKeys);
-    this.setState({ selectedRowKeys });
-  };
-
+class CrudIndex extends PureComponent {
   componentDidMount() {
-    this.props.getCrudResource(this.props.resource);
+    this.props.setCurrentResource(this.props.match);
   }
 
   render() {
-    const columns = this.props.resource.get('columns').toJS();
-    const data = this.props.data && this.props.data.toJS();
-    const { loading, selectedRowKeys } = this.state;
-    const rowSelection = {
-      selectedRowKeys,
-      onChange: this.onSelectChange,
-    };
-    const hasSelected = selectedRowKeys.length > 0;
     return (
         <div className="ContentPanel">
 
           <div className="action-panel">
-            <Button
-                type="primary"
-                size="large"
-                onClick={this.start}
-                disabled={!hasSelected}
-                loading={loading}
-            >
-              Reload
-            </Button>
-
             <Button
                 type="primary"
                 size="large"
@@ -73,11 +40,12 @@ class CrudIndex extends Component {
                 <span>{this.props.resource.get('labelAdd')}</span>
               </NavLink>
             </Button>
-
-            <span style={{ marginLeft: 8 }}>{hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}</span>
           </div>
 
-          <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+          <Table
+              columns={this.props.resourceColumns.toJS()}
+              dataSource={this.props.resourceItems.toJS()}
+          />
 
         </div>
     );
@@ -85,13 +53,17 @@ class CrudIndex extends Component {
 }
 
 CrudIndex.propTypes = {
-  getCrudResource: PropTypes.func,
+  setCurrentResource: PropTypes.func,
+  resource: ImmutablePropTypes.map,
+  resourceColumns: ImmutablePropTypes.list,
+  resourceItems: ImmutablePropTypes.list,
 };
 
 const mapStateToProps = (state, ownProps) => {
   return createStructuredSelector({
-    resource: makeSelectResource(ownProps.match.path),
-    data: makeSelectCurrentResourceData(),
+    resource: makeSelectCurrentResource(),
+    resourceColumns: makeSelectCurrentResourceColumns(),
+    resourceItems: makeSelectCurrentResourceItems(),
   });
 };
 
@@ -99,7 +71,7 @@ const wrapper = compose(
     connect(
         mapStateToProps,
         dispatch => bindActionCreators({
-          getCrudResource,
+          setCurrentResource,
         }, dispatch),
     ),
 );

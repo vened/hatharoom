@@ -12,12 +12,9 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'recompose';
 
-import {
-  makeSelectResource,
-  makeSelectResourceColumns,
-} from '../store/selectors';
-import { getCrudResource } from '../store/actions';
-import CrudApi from '../api';
+import { makeSelectCurrentResource } from '../store/resources/selectors';
+import { createCrudResource } from '../store/actions';
+// import { setCurrentResource } from '../store/currentResource/actions';
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -32,21 +29,15 @@ class CrudForm extends Component {
   }
 
   componentDidMount() {
-    // To disabled submit button at the beginning.
+    // this.props.setCurrentResource(this.props.match);
     this.props.form.validateFields();
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const requestPath = `${this.props.resource.get('apiPath')}`
+    const requestPath = `${this.props.resource.get('apiPath')}`;
     this.props.form.validateFields((err, values) => {
-      if (!err) {
-        CrudApi.post(requestPath, values).then(
-            response => console.log(response),
-            error => console.log(error),
-        );
-        console.log('Received values of form: ', values);
-      }
+      !err && this.props.createCrudResource(requestPath, values);
     });
   };
 
@@ -97,16 +88,13 @@ class CrudForm extends Component {
   };
 
   render() {
-    const {
-      getFieldDecorator,
-      getFieldsError,
-    } = this.props.form;
+    const { getFieldsError } = this.props.form;
 
     return (
         <div className="ContentPanel">
           <Form layout="vertical" onSubmit={this.handleSubmit}>
 
-            {this.props.columns.map((item) => this.renderItem(item))}
+            {this.props.resource.get('columns').map((item) => this.renderItem(item))}
 
             <FormItem>
               <Button
@@ -125,23 +113,23 @@ class CrudForm extends Component {
 }
 
 CrudForm.propTypes = {
-  getCrudResource: PropTypes.func,
+  createCrudResource: PropTypes.func,
   resource: ImmutablePropTypes.map,
-  columns: ImmutablePropTypes.list,
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const action = ownProps.match.params.action && ownProps.match.params.action;
   return createStructuredSelector({
-    resource: makeSelectResource(ownProps.match.url, action),
-    columns: makeSelectResourceColumns(ownProps.match.url, action),
+    resource: makeSelectCurrentResource(),
   });
 };
 
 const wrapper = compose(
     connect(
         mapStateToProps,
-        dispatch => bindActionCreators({}, dispatch),
+        dispatch => bindActionCreators({
+          // setCurrentResource,
+          createCrudResource,
+        }, dispatch),
     ),
 );
 

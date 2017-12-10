@@ -9,7 +9,6 @@ import resources from '../resources';
 // Initial routing state
 export const routeInitialState = fromJS({
   resources: resources,
-  currentResource: {},
   data: [],
   current: null,
   loading: false,
@@ -19,8 +18,7 @@ function resourcesReducer(state = routeInitialState, action) {
   switch (action.type) {
     case GET_CRUD_RESOURCE:
       return state
-          .set('loading', true)
-          .set('currentResource', fromJS(action.payload));
+          .set('loading', true);
     case GET_CRUD_RESOURCE_SUCCESS:
       return state
           .set('loading', false)
@@ -35,3 +33,4 @@ function resourcesReducer(state = routeInitialState, action) {
 }
 
 export default resourcesReducer;
+
