@@ -11,7 +11,7 @@ const apiHost = 'http://localhost:3000';
 const CrudApi = {
   get: (resourcePath, params) => {
     const url = `${apiHost}${resourcePath}`;
-    return fetchGET(url);
+    return fetchGET(url, params);
   },
   post: (resourcePath, params) => {
     const url = `${apiHost}${resourcePath}`;

@@ -1,10 +1,21 @@
 import request from './request';
 
-function fetchGET(url) {
+function fetchGET(url, params) {
   const options = {
     method: 'GET',
-    credentials: 'include'
+    credentials: 'include',
   };
+
+  let queryString = {};
+
+  if (params) {
+    queryString = Object.keys(params)
+        .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`)
+        .join('&');
+
+    url = `${url}?${queryString}`;
+  }
+
 
   return request(url, options);
 }

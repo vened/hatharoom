@@ -7,6 +7,7 @@ import {
 
 export const routeInitialState = fromJS({
   data: [],
+  meta: {},
   loading: false,
 });
 
@@ -18,7 +19,8 @@ function currentResourceItemsReducer(state = routeInitialState, action) {
     case GET_CURRENT_RESOURCE_ITEMS_SUCCESS:
       return state
           .set('loading', false)
-          .set('data', fromJS(action.payload));
+          .set('data', fromJS(action.payload.data))
+          .set('meta', fromJS(action.payload.meta));
     case GET_CURRENT_RESOURCE_ITEMS_ERROR:
       return state
           .set('loading', false)

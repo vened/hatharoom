@@ -15,7 +15,7 @@ class CrudRoutes extends PureComponent {
           <Switch key={shortid.generate()}>
             <Route
                 exact
-                path={item.path}
+                path={`${item.path}`}
                 key={shortid.generate()}
                 component={CrudIndex}
             />

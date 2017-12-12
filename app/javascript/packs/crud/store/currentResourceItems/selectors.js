@@ -9,7 +9,15 @@ const makeSelectCurrentResourceItems = () => createSelector(
     },
 );
 
+const makeSelectCurrentResourceItemsMeta = () => createSelector(
+    makeSelectDomen(),
+    resource => {
+      return resource.get('meta');
+    },
+);
+
 
 export {
   makeSelectCurrentResourceItems,
+  makeSelectCurrentResourceItemsMeta,
 };

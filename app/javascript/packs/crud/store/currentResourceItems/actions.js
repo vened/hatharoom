@@ -5,14 +5,14 @@ import {
   GET_CURRENT_RESOURCE_ITEMS_ERROR,
 } from './constants';
 
-export function getCurrentResourceItems(resource) {
+export function getCurrentResourceItems(resource, params) {
   return (dispatch) => {
     dispatch({
       type: GET_CURRENT_RESOURCE_ITEMS,
     });
 
     try {
-      CrudApi.get(resource.get('apiPath')).then(
+      CrudApi.get(resource.get('apiPath'), params).then(
           response => dispatch(
               {
                 type: GET_CURRENT_RESOURCE_ITEMS_SUCCESS,

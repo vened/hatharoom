@@ -3,9 +3,9 @@ class Api::V1::PagesController < Api::V1::ApiController
   after_action :verify_authorized
 
   def index
-    @pages = Page.all
     authorize Page
-    render json: @pages
+    collection = Page.all
+    render_collection(collection)
   end
 
   def create

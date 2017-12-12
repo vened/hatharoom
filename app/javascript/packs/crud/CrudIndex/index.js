@@ -14,7 +14,11 @@ import {
 } from 'antd';
 
 import { setCurrentResource } from '../store/currentResource/actions';
-import { makeSelectCurrentResourceItems } from '../store/currentResourceItems/selectors';
+import { getCurrentResourceItems } from '../store/currentResourceItems/actions';
+import {
+  makeSelectCurrentResourceItems,
+  makeSelectCurrentResourceItemsMeta,
+} from '../store/currentResourceItems/selectors';
 import {
   makeSelectCurrentResource,
   makeSelectCurrentResourceColumns,
@@ -25,7 +29,25 @@ class CrudIndex extends PureComponent {
     this.props.setCurrentResource(this.props.match);
   }
 
+  handleChange = (pagination) => {
+    this.props.getCurrentResourceItems(this.props.resource, pagination);
+  };
+
   render() {
+    const { meta, resource, resourceColumns, resourceItems } = this.props;
+
+    const pagination = {
+      pageSize: resource.getIn([
+        'pagination',
+        'pageSize',
+      ]),
+      current: parseInt(meta.get('current')) ? parseInt(meta.get('current')) : resource.getIn([
+        'pagination',
+        'current',
+      ]),
+      total: parseInt(meta.get('total')),
+    };
+
     return (
         <div className="ContentPanel">
 
@@ -34,16 +56,20 @@ class CrudIndex extends PureComponent {
                 type="primary"
                 size="large"
             >
-              <NavLink to={`${this.props.resource.get('path')}/create`}>
-                <span>{this.props.resource.get('labelAdd')}</span>
+              <NavLink to={`${resource.get('path')}/create`}>
+                <span>{resource.get('labelAdd')}</span>
               </NavLink>
             </Button>
           </div>
 
-          <Table
-              columns={this.props.resourceColumns.toJS()}
-              dataSource={this.props.resourceItems.toJS()}
-          />
+          {!resourceItems.isEmpty() &&
+           <Table
+               columns={resourceColumns.toJS()}
+               dataSource={resourceItems.toJS()}
+               onChange={this.handleChange}
+               pagination={pagination}
+           />
+          }
 
         </div>
     );
@@ -52,9 +78,11 @@ class CrudIndex extends PureComponent {
 
 CrudIndex.propTypes = {
   setCurrentResource: PropTypes.func,
+  getCurrentResourceItems: PropTypes.func,
   resource: ImmutablePropTypes.map,
   resourceColumns: ImmutablePropTypes.list,
   resourceItems: ImmutablePropTypes.list,
+  meta: ImmutablePropTypes.map,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -62,6 +90,7 @@ const mapStateToProps = (state, ownProps) => {
     resource: makeSelectCurrentResource(),
     resourceColumns: makeSelectCurrentResourceColumns(),
     resourceItems: makeSelectCurrentResourceItems(),
+    meta: makeSelectCurrentResourceItemsMeta(),
   });
 };
 
@@ -70,6 +99,7 @@ const wrapper = compose(
         mapStateToProps,
         dispatch => bindActionCreators({
           setCurrentResource,
+          getCurrentResourceItems,
         }, dispatch),
     ),
 );

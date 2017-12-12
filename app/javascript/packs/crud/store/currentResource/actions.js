@@ -7,7 +7,6 @@ export function setCurrentResource(routeMatch) {
   return (dispatch, getState) => {
 
     const state = getState();
-
     const currentPath = routeMatch.url;
     const action = routeMatch.params && routeMatch.params.action;
     const resourcePath = action ? currentPath.replace(`/${action}`, '') : currentPath;
@@ -18,6 +17,17 @@ export function setCurrentResource(routeMatch) {
       type: SET_CURRENT_RESOURCE,
       payload: currentResource,
     });
-    dispatch(getCurrentResourceItems(currentResource));
+    if (!action) {
+      dispatch(getCurrentResourceItems(currentResource, {
+        pageSize: currentResource.getIn([
+          'pagination',
+          'pageSize',
+        ]),
+        current: currentResource.getIn([
+          'pagination',
+          'current',
+        ]),
+      }));
+    }
   };
 }

@@ -67,3 +67,6 @@ gem "devise-bootstrap-views", "~> 0.0.11"
 
 # Added at 2017-12-08 23:42:41 +0300 by max:
 gem "active_model_serializers", "~> 0.10.7"
+
+# Added at 2017-12-12 22:46:10 +0300 by max:
+gem "kaminari", "~> 1.1"

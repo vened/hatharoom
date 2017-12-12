@@ -33,6 +33,10 @@ const crudResources = [
     label: 'Страницы',
     labelAdd: 'Новая страница',
     faIcon: 'book',
+    pagination: {
+      pageSize: 2,
+      current: 1,
+    },
     columns: [
       {
         title: 'id',
