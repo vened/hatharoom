@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'recompose';
 
-import { makeSelectCurrentResource } from '../store/resources/selectors';
+import { makeSelectCurrentResource } from '../store/currentResource/selectors';
 import { createCrudResource } from '../store/actions';
 // import { setCurrentResource } from '../store/currentResource/actions';
 

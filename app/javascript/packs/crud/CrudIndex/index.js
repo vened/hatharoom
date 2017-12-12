@@ -14,9 +14,7 @@ import {
 } from 'antd';
 
 import { setCurrentResource } from '../store/currentResource/actions';
-import {
-  makeSelectCurrentResourceItems,
-} from '../store/currentResourceItems/selectors';
+import { makeSelectCurrentResourceItems } from '../store/currentResourceItems/selectors';
 import {
   makeSelectCurrentResource,
   makeSelectCurrentResourceColumns,
