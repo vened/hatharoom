@@ -1,4 +1,9 @@
 import React, { PureComponent } from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { compose } from 'recompose';
 import {
   Avatar,
   Badge,
@@ -6,6 +11,8 @@ import {
   Dropdown,
   Icon,
 } from 'antd';
+
+import {makeSelectCurrentUser} from '../../store/User/selectors';
 import './AdminUser.less';
 
 const notifications = (
@@ -21,6 +28,7 @@ const notifications = (
 
 const menu = (
   <Menu>
+    {/*
     <Menu.Item key="0">
       <a href="/">Settings</a>
     </Menu.Item>
@@ -28,8 +36,9 @@ const menu = (
       <a href="/">Profile</a>
     </Menu.Item>
     <Menu.Divider />
+    */}
     <Menu.Item key="3">
-      <a href="/">Logout</a>
+      <a rel="nofollow" data-method="delete" href="/users/sign_out">Выход</a>
     </Menu.Item>
   </Menu>
 );
@@ -39,23 +48,43 @@ class AdminUser extends PureComponent {
     return (
       <div className="AdminUser">
 
+        {/*
         <Dropdown overlay={notifications} trigger={['click']}>
           <div className="AdminUserNotification">
             <Icon type="notification" className="AdminUserNotificationIcon" />
             <Badge count={2} />
           </div>
         </Dropdown>
+        */}
 
         <Dropdown overlay={menu} trigger={['click']}>
           <a className="AdminUserMenu" href="/">
-            John Smith <Icon type="down" />
+            {this.props.currentUser.get('email')}
+            <Icon type="down" />
           </a>
         </Dropdown>
 
-        <Avatar icon="user" />
+        {/*<Avatar icon="user" />*/}
       </div>
     );
   }
 }
 
-export default AdminUser;
+AdminUser.propTypes = {
+  currentUser: ImmutablePropTypes.map,
+};
+
+const mapStateToProps = (state, ownProps) => {
+  return createStructuredSelector({
+    currentUser: makeSelectCurrentUser(),
+  });
+};
+
+const wrapper = compose(
+    connect(
+        mapStateToProps,
+        dispatch => bindActionCreators({}, dispatch),
+    ),
+);
+
+export default wrapper(AdminUser);

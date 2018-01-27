@@ -30,6 +30,12 @@ class Api::V1::UsersController < Api::V1::ApiController
     redirect_to users_path, :notice => "User deleted."
   end
 
+  def this_user
+    @user = current_user
+    authorize @user
+    render json: @user
+  end
+
   private
 
   def secure_params

@@ -23,4 +23,8 @@ class UserPolicy
     @current_user.admin?
   end
 
+  def this_user?
+    @current_user.admin?
+  end
+
 end

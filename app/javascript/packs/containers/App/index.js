@@ -7,6 +7,10 @@ import {
 import { Layout } from 'antd';
 import shortid from 'shortid';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getCurrentUser } from '../../store/User/actions';
+
 import AdminHeader from '../../components/AdminHeader';
 import ContentHeading from '../../components/ContentHeading';
 import Sidebar from '../../components/Sidebar';
@@ -19,6 +23,9 @@ import './app.less';
 const { Content } = Layout;
 
 class App extends Component {
+  componentDidMount(){
+    this.props.getCurrentUser();
+  }
   render() {
     return (
         <Layout className="AppLayout">
@@ -35,8 +42,8 @@ class App extends Component {
                 <main style={{ padding: '16px' }}>
                   <ContentHeading />
                   <Switch>
-                    <Route exact path="/" component={Dashboard} />
-                    <Route path="/ui" component={UI} />
+                    <Route exact path="/admin" component={Dashboard} />
+                    <Route path="/admin/ui" component={UI} />
                     <CrudRoutes key={shortid.generate()} />
                   </Switch>
                 </main>
@@ -52,4 +59,14 @@ App.propTypes = {
   PROP: PropTypes.string,
 };
 
-export default App;
+
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  getCurrentUser,
+}, dispatch);
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(App);
