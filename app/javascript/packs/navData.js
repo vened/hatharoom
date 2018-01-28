@@ -5,13 +5,18 @@ const navData = [
     faIcon: 'tachometer',
   },
   {
+    label: 'Пользователи',
+    path: '/admin/users',
+    faIcon: 'users',
+  },
+  {
     label: 'UI elements',
     path: '/admin/ui',
     faIcon: 'desktop',
     children: [
       {
         label: 'Avatar',
-        path: '/ui/avatar',
+        path: '/admin/ui/avatar',
       },
       {
         label: 'Badge',

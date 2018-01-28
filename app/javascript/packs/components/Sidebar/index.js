@@ -7,11 +7,10 @@ import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import shortid from 'shortid';
 import SidebarHeader from '../SidebarHeader';
-import Nav from '../../crud/Nav';
 import navData from '../../navData';
 import {
   siderCollapsed,
@@ -30,12 +29,10 @@ class Sidebar extends PureComponent {
     }
     return (
         <Menu.Item key={shortid.generate()}>
-          <NavLink
-              to={menuItem.path}
-          >
+          <Link to={menuItem.path}>
             {menuItem.faIcon && <FontAwesome name={menuItem.faIcon} />}
             <span>{menuItem.label}</span>
-          </NavLink>
+          </Link>
         </Menu.Item>
     );
   };
@@ -78,7 +75,6 @@ class Sidebar extends PureComponent {
         >
           <SidebarHeader />
           {this.renderMenu()}
-          <Nav />
         </Sider>
     );
   }

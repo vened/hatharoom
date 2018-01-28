@@ -1,32 +1,29 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import {
-  Route,
-  Switch,
-} from 'react-router-dom';
 import { Layout } from 'antd';
-import shortid from 'shortid';
+import { createStructuredSelector } from 'reselect';
+
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
 import { getCurrentUser } from '../../store/User/actions';
 
 import AdminHeader from '../../components/AdminHeader';
 import ContentHeading from '../../components/ContentHeading';
 import Sidebar from '../../components/Sidebar';
-import Dashboard from '../Dashboard';
-import UI from '../UI';
-import CrudRoutes from '../../crud/routes';
 
 import './app.less';
 
 const { Content } = Layout;
 
 class App extends Component {
-  componentDidMount(){
+  componentDidMount() {
     this.props.getCurrentUser();
   }
+
   render() {
+
     return (
         <Layout className="AppLayout">
           <AdminHeader />
@@ -41,11 +38,7 @@ class App extends Component {
               >
                 <main style={{ padding: '16px' }}>
                   <ContentHeading />
-                  <Switch>
-                    <Route exact path="/admin" component={Dashboard} />
-                    <Route path="/admin/ui" component={UI} />
-                    <CrudRoutes key={shortid.generate()} />
-                  </Switch>
+                  {this.props.children}
                 </main>
               </Content>
             </Layout>
@@ -56,11 +49,14 @@ class App extends Component {
 }
 
 App.propTypes = {
-  PROP: PropTypes.string,
+  children: PropTypes.node,
 };
 
 
-const mapStateToProps = state => ({});
+const mapStateToProps = (state, ownProps) => {
+  return createStructuredSelector({});
+};
+
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   getCurrentUser,
