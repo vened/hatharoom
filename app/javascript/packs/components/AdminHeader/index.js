@@ -43,7 +43,6 @@ class AdminHeader extends PureComponent {
 
 
 AdminHeader.propTypes = {
-  currentPage: PropTypes.string.isRequired,
   collapsed: PropTypes.bool,
   siderWidth: PropTypes.number,
   siderCollapsed: PropTypes.func,
@@ -52,7 +51,6 @@ AdminHeader.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    currentPage: state.get('Header').currentPage,
     collapsed: state.get('Sider').collapsed,
     siderWidth: state.get('Sider').siderWidth,
   };

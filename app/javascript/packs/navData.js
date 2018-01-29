@@ -1,22 +1,22 @@
 const navData = [
   {
     label: 'Dashboard',
-    path: '/admin',
+    path: '',
     faIcon: 'tachometer',
   },
   {
     label: 'Пользователи',
-    path: '/admin/users',
+    path: '/users',
     faIcon: 'users',
   },
   {
     label: 'UI elements',
-    path: '/admin/ui',
+    path: '/ui',
     faIcon: 'desktop',
     children: [
       {
         label: 'Avatar',
-        path: '/admin/ui/avatar',
+        path: '/ui/avatar',
       },
       {
         label: 'Badge',

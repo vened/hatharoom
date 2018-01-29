@@ -20,8 +20,9 @@ import './styles/base.less';
 import configureStore from './store';
 import { selectLocationState } from './store/router/selectors';
 
-import App from './containers/App';
+import { basePath } from './constants';
 
+import App from './containers/App';
 import Dashboard from './containers/Dashboard';
 import UiAvatar from './containers/UI/UiAvatar';
 import Users from './containers/Users';
@@ -39,7 +40,7 @@ render(
     <Provider store={store}>
       <LocaleProvider locale={enUS}>
         <Router history={history}>
-          <Route path="/admin" component={App}>
+          <Route path={basePath} component={App}>
             <IndexRoute component={Dashboard} />
             <Route path="users">
               <IndexRoute component={Users} />

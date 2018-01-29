@@ -17,6 +17,7 @@ import {
   siderUnCollapsed,
 } from '../../store/Sider/reducer';
 import './sidebar.less';
+import { basePath } from '../../constants';
 
 const SubMenu = Menu.SubMenu;
 const { Sider } = Layout;
@@ -29,7 +30,7 @@ class Sidebar extends PureComponent {
     }
     return (
         <Menu.Item key={shortid.generate()}>
-          <Link to={menuItem.path}>
+          <Link to={`${basePath}${menuItem.path}`}>
             {menuItem.faIcon && <FontAwesome name={menuItem.faIcon} />}
             <span>{menuItem.label}</span>
           </Link>

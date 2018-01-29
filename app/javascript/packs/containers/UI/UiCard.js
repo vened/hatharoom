@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setPage } from '../../store/Header/reducer';
+import { setPage } from '../../store/ContentHeading/reducer';
 
 const gridStyle = {
   width: '25%',

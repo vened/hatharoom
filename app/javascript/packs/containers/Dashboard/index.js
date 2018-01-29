@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setPage } from '../../store/Header/reducer';
+import { setPage } from '../../store/ContentHeading/reducer';
 
 class Dashboard extends PureComponent {
   componentDidMount() {
