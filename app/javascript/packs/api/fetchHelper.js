@@ -16,6 +16,7 @@ function fetchPUT(url, body) {
 
   const options = {
     method: 'PUT',
+    credentials: 'include',
     headers,
     body: JSON.stringify(body),
   };

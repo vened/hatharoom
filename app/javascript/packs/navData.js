@@ -10,6 +10,11 @@ const navData = [
     faIcon: 'users',
   },
   {
+    label: 'Фотоальбомы',
+    path: '/albums',
+    faIcon: 'photo',
+  },
+  {
     label: 'UI elements',
     path: '/ui',
     faIcon: 'desktop',

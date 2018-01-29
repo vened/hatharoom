@@ -26,6 +26,8 @@ import App from './containers/App';
 import Dashboard from './containers/Dashboard';
 import UiAvatar from './containers/UI/UiAvatar';
 import Users from './containers/Users';
+import Albums from './containers/Albums';
+import AlbumsCreate from './containers/Albums/form';
 
 const initialState = {};
 
@@ -44,6 +46,10 @@ render(
             <IndexRoute component={Dashboard} />
             <Route path="users">
               <IndexRoute component={Users} />
+            </Route>
+            <Route path="albums">
+              <IndexRoute component={Albums} />
+              <Route path="new" component={AlbumsCreate} />
             </Route>
             <Route path="ui">
               <Route path="avatar" component={UiAvatar} />

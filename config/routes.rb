@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get '/current_user' => 'users#this_user'
       resources :users
+      resources :albums
       resources :pages
     end
   end
