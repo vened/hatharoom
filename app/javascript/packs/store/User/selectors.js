@@ -9,6 +9,14 @@ const makeSelectCurrentUser = () => createSelector(
     },
 );
 
+const makeSelectUsers = () => createSelector(
+    makeSelectDomain(),
+    resource => {
+      return resource.get('users');
+    },
+);
+
 export {
   makeSelectCurrentUser,
+  makeSelectUsers,
 };

@@ -1,3 +1,8 @@
 export const GET_CURRENT_USER = 'app/GET_CURRENT_USER';
 export const GET_CURRENT_USER_SUCCESS = 'app/GET_CURRENT_USER_SUCCESS';
 export const GET_CURRENT_USER_ERROR = 'app/GET_CURRENT_USER_ERROR';
+
+export const GET_USERS = 'app/GET_USERS';
+export const GET_USERS_SUCCESS = 'app/GET_USERS_SUCCESS';
+export const GET_USERS_ERROR = 'app/GET_USERS_ERROR';
+
