@@ -1,3 +1,3 @@
-const apiHost = 'http://localhost:3000/api/v1';
+const apiHost = 'http://localhost:4000/api/v1';
 
 export default apiHost;
